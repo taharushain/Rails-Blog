@@ -49,3 +49,4 @@ end
 
 
 gem 'devise', '~> 3.4.0'
+gem 'rails_real_favicon'
