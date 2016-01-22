@@ -2,10 +2,10 @@
 <html>
 <head>
   <title>Blog</title>
-  <%= render 'favicon' %>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= stylesheet_link_tag 'application', 'http://fonts.googleapis.com/css?family=Raleway:400,700' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= favicon_link_tag 'favicon.ico' %>
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -16,40 +16,52 @@
 			<% end %>
 		</div>
 
-	<ul>
-		<li class="category">Website</li>
-		<li><%= link_to "Blog", root_path %></li>
-		<li>About</li>
-	</ul>
+		<ul>
+			<li class="category">Website</li>
+			<li><%= link_to "Blog", root_path %></li>
+			<li><%= link_to "About", about_path %></li>
+		</ul>
 
-	<ul>
-		<li class="category">Socials</li>
-		<li><a href="https://www.fb.com">FB</a></li>
-		<li><a href="https://www.fb.com">FB</a></li>
-		<li><a href="https://www.fb.com">FB</a></li>
-		<li><a href="https://www.fb.com">FB</a></li>
-	</ul>
+		<ul>
+			<li class="category">Social</li>
+			<li><a href="https://twitter.com/trushain" target="_blank">Twitter</a></li>
+			<li><a href="https://www.instagram.com/taharushain/" target="_blank">Instagram</a></li>
+			<li><a href="https://github.com/trushain/" target="_blank">Github</a></li>
+			<li><a href="https://www.facebook.com/Trushain" target="_blank">Facebook</a></li>
+			<li><a href="https://www.linkedin.com/in/trushain" target="_blank">LinkedIn</a></li>
+			<li><a href="mailto:taharushain@gmail.com" target="_blank">Email</a></li>
+		</ul>
 
-	<p class="sign_in">Admin Login</p>
+		<% if !user_signed_in? %>
+			<p class="sign_in"><%= link_to "Admin Login", new_user_session_path %></p>
+		<% end %>
 	</div>
 
 	<div id="main_content">
 		<div id="header">
-			<p>All Posts</p>
+			<% if current_page?(root_path) %>
+				<p>All Posts</p>
+			<% elsif current_page?(about_path) %>
+				<p>About</p>
+			<% else %>
+				<%= link_to "Back to All Posts", root_path %>
+			<% end %>
 
-			<div class="buttons">
-				<button class="button"><%= link_to "New Post", new_post_path %></button>
-				<button class="button">Log Out</button>
-			</div>
+			<% if user_signed_in? %>
+				<div class="buttons">
+					<button class="button"><%= link_to "New Post", new_post_path %></button>
+
+
+					<%= link_to "Log Out", destroy_user_session_path, :class => "button", method: :delete %>﻿
+				</div>
+			<% end %>
 		</div>
 
 		<% flash.each do |name, msg| %>
 			<%= content_tag(:div, msg, class: "alert") %>
 		<% end %>
-		
-		<%= yield %>		
+
+		<%= yield %>
 	</div>
-
-
 </body>
 </html>

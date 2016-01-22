@@ -47,3 +47,4 @@ group :development, :test do
   gem 'rails_real_favicon'
 end
 
+gem 'devise', '~> 3.4.0'
