@@ -2,4 +2,4 @@
 
 This Blog is developed in Ruby on Rails and is deployed for testing on
 
-#rnrblog.heroku.com
+=rnrblog.heroku.com
